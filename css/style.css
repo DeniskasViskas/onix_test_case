@@ -1,0 +1,113 @@
+/*general style*/
+html{
+    font-size: 13px;
+    height: 100%;
+}
+body{
+    background-color: #eef0f8;
+    color: #3f4254;
+    height: 100%;
+}
+.wrapper{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.border-right{
+    border-right: 1px solid #ebedf3!important;
+}
+.text-justify{
+    text-align: justify;
+}
+.content-main-title{
+    font-size: 2rem;
+    color: #181c32;
+    font-weight: bold;
+    margin-bottom: 2rem;
+}
+.content-second-title{
+    font-size: 1.5rem;
+    color: #181c32;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+.code-block{
+    margin: 2rem;
+}
+/*header*/
+.header{
+    flex: 1 0 auto;
+}
+/*content*/
+.content{
+    flex: 1 0 auto;
+}
+.card.custom-card{
+    border: none;
+}
+.wizard-vertical{
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+.wizard-vertical .wizard-left{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 400px;
+    flex: 0 0 400px;
+    width: 400px;
+    max-width: 100%;
+    padding:3rem 2rem;
+}
+.wizard-right{
+    width: 100%;
+    padding: 3rem 2rem;
+}
+.wizard-icon{
+    margin-right: 1rem;
+    font-size: 2rem;
+}
+.nav-tabs{
+    border: none;
+}
+.nav-tabs .nav-link{
+    border: none;
+    position: relative;
+    padding: 1rem;
+}
+.nav-tabs .nav-link.active:after{
+    left: 100%;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    content: " ";
+    height: 0;
+    width: 0;
+    border: solid transparent;
+    position: absolute;
+    border-left-color: #f3f6f9;
+    border-width: 1rem;
+}
+.nav-tabs .nav-link.active{
+    background-color: #f3f6f9;
+}
+.nav-tabs .nav-link{
+    color: #181c32;
+    display: flex;
+}
+
+.tab-content{
+    font-size: 18px;
+    height: 500px;
+    overflow-y:auto;
+}
+.nav-link.active,.nav-link.active:hover,.nav-link.active:focus {
+    border: none;
+}
+/*footer style*/
+.footer{
+    margin-top: 2rem;
+    flex: 0 0 auto;
+}
