@@ -1,83 +1,61 @@
 import React from "react"
+import TabsHeader from "./parts/TabsHeader";
+import PropTypes from "prop-types";
 
 function WizardLeft(props) {
-    const tabStatus = props.tabStatus
-    function a(index) {
-        console.log(index,'left')
+    function setTabIndex(index) {
         return props.onTabClick(index)
-
     }
-    return(
+    return (
         <div className={"wizard-left border-right"}>
             <ul className="nav nav-tabs d-inline-block" id="myTab" role="tablist">
-                <li className="nav-item" role="presentation">
-                    <a className={"nav-link"+(tabStatus[0] ? ' active' : '')} onClick={()=>a(0)} data-bs-toggle="tab" href="#tab_1" role="tab" data-row="1" aria-selected="true" >
-                        <div className="wizard-icon">
-                            <i className="fab fa-github"/>
-                        </div>
-                        <div className="wizard-label">
-                            <h3>Cистема контроля версий</h3>
-                            <div className="wizard-desc text-muted">Что это? Зачем это?</div>
-                        </div>
-                    </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <a className={"nav-link"+(tabStatus[1] ? ' active' : '')} onClick={()=>a(1)} data-bs-toggle="tab" href="#tab_2" role="tab" aria-selected="false">
-                        <div className="wizard-icon">
-                            <i className="fab fa-git"/>
-                        </div>
-                        <div className="wizard-label">
-                            <h3>Основы Git</h3>
-                            <div className="wizard-desc text-muted">checkout, add, commit, pull, push</div>
-                        </div>
-                    </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <a className={"nav-link"+(tabStatus[2] ? ' active' : '')} onClick={()=>a(2)} data-bs-toggle="tab" href="#tab_3" role="tab" aria-selected="false">
-                        <div className="wizard-icon">
-                            <i className="fab fa-node-js"/>
-                        </div>
-                        <div className="wizard-label">
-                            <h3>Nodejs</h3>
-                            <div className="wizard-desc text-muted">Что это? Зачем это?</div>
-                        </div>
-                    </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <a className={"nav-link"+(tabStatus[3] ? ' active' : '')} onClick={()=>a(3)} data-bs-toggle="tab" href="#tab_4" role="tab" aria-selected="false">
-                        <div className="wizard-icon">
-                            <i className="fab fa-npm"/>
-                        </div>
-                        <div className="wizard-label">
-                            <h3>Mенеджер пакетов npm</h3>
-                            <div className="wizard-desc text-muted">установка npm</div>
-                        </div>
-                    </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <a className={"nav-link"+(tabStatus[4] ? ' active' : '')} onClick={()=>a(4)} data-bs-toggle="tab" href="#tab_5" role="tab" aria-selected="false">
-                        <div className="wizard-icon">
-                            <i className="fab fa-html5"/>
-                        </div>
-                        <div className="wizard-label">
-                            <h3>Основы HTML</h3>
-                            <div className="wizard-desc text-muted">теги, структура...</div>
-                        </div>
-                    </a>
-                </li>
-                <li className="nav-item" role="presentation">
-                    <a className={"nav-link"+(tabStatus[5] ? ' active' : '')} onClick={()=>a(5)} data-bs-toggle="tab" href="#tab_6" role="tab" aria-selected="false">
-                        <div className="wizard-icon">
-                            <i className="fab fa-css3"/>
-                        </div>
-                        <div className="wizard-label">
-                            <h3>Основы Css</h3>
-                            <div className="wizard-desc text-muted">стили, классы, идентификаторы...</div>
-                        </div>
-                    </a>
-                </li>
+                <TabsHeader isActive={(props.tabIndexShow === 0)}
+                            tabIndex={0}
+                            icon={"fab fa-github"}
+                            setTabIndex={setTabIndex}
+                            label={"Что это? Зачем это?"}
+                            title={"Cистема контроля версий"}
+                />
+                <TabsHeader isActive={(props.tabIndexShow ===1)}
+                            tabIndex={1}
+                            icon={"fab fa-git"}
+                            setTabIndex={setTabIndex}
+                            label={"checkout, add, commit, pull, push"}
+                            title={"Основы Git"}
+                />
+                <TabsHeader isActive={(props.tabIndexShow === 2)}
+                            tabIndex={2}
+                            icon={"fab fa-node-js"}
+                            setTabIndex={setTabIndex}
+                            label={"Что это? Зачем это?"}
+                            title={"Nodejs"}/>
+                <TabsHeader isActive={(props.tabIndexShow === 3)}
+                            tabIndex={3}
+                            icon={"fab fa-npm"}
+                            setTabIndex={setTabIndex}
+                            label={"установка npm"}
+                            title={"Mенеджер пакетов npm"}
+                />
+                <TabsHeader isActive={(props.tabIndexShow === 4)}
+                            tabIndex={4}
+                            icon={"fab fa-html5"}
+                            setTabIndex={setTabIndex}
+                            label={"теги, структура..."}
+                            title={"Основы HTML"}
+                />
+                <TabsHeader isActive={(props.tabIndexShow === 5)}
+                            tabIndex={5}
+                            icon={"fab fa-css3"}
+                            setTabIndex={setTabIndex}
+                            label={"стили, классы, идентификаторы..."}
+                            title={"Основы Css"}
+                />
             </ul>
         </div>
     )
 }
+WizardLeft.propTypes = {
+    setTabIndex: PropTypes.func,
+    tabIndexShow: PropTypes.number
+};
 export default WizardLeft
