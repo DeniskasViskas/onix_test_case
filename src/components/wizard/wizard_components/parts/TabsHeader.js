@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes, {bool, number} from 'prop-types';
+import PropTypes from 'prop-types';
 
 function TabsHeader(props) {
     const isActive = props.isActive;
@@ -12,7 +12,7 @@ function TabsHeader(props) {
     }
     return (
         <li className="nav-item" role="presentation">
-            <a className={"nav-link"+(isActive  ? ' active' : '')} onClick={()=>setTabIndex(tabIndex)}
+            <div className={"nav-link"+(isActive  ? ' active' : '')} onClick={()=>setTabIndex(tabIndex)}
                data-bs-toggle="tab" href="#" role="tab" data-row={isActive} aria-selected="true" >
                 <div className="wizard-icon">
                     <i className={iconClass}/>
@@ -21,7 +21,7 @@ function TabsHeader(props) {
                     <h3>{tabTitle}</h3>
                     <div className="wizard-desc text-muted">{tabLabel}</div>
                 </div>
-            </a>
+            </div>
         </li>
     )
 }
