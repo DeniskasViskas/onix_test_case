@@ -1,27 +1,24 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-function TabsHeader({isActive,tabIndex,icon,setTabIndex,label,title}) {
+function TabsHeader({data,onTabClick}) {
     return (
-        <li className="nav-item" role="presentation">
-            <div className={"nav-link"+(isActive  ? ' active' : '')} onClick={()=>setTabIndex(tabIndex)}
-               data-bs-toggle="tab" href="#" role="tab" data-row={isActive} aria-selected="true" >
+        <li className="nav-item" role="presentation" key={data.id}>
+            <div  className={"nav-link"+(data.active  ? ' active' : '')} onClick={()=>onTabClick(data.id)}
+               data-bs-toggle="tab" href="#" role="tab" data-row={data.tabIndex} aria-selected="true" >
                 <div className="wizard-icon">
-                    <i className={icon}/>
+                    <i className={data.icon}/>
                 </div>
                 <div className="wizard-label">
-                    <h3>{title}</h3>
-                    <div className="wizard-desc text-muted">{label}</div>
+                    <h3>{data.title}</h3>
+                    <div className="wizard-desc text-muted">{data.label}</div>
                 </div>
             </div>
         </li>
     )
 }
 TabsHeader.propTypes = {
-    isActive: PropTypes.bool,
-    tabIndex: PropTypes.number,
-    iconClass: PropTypes.string,
-    tabTitle: PropTypes.string,
-    tabLabel: PropTypes.string
+    data: PropTypes.object,
+    onTabClick: PropTypes.func
 };
 export default TabsHeader;

@@ -1,13 +1,23 @@
 import React from "react"
 import TabsContent from "./parts/TabsContent";
+import PropTypes from "prop-types";
 
-function WizardRight({tabIndexShow}) {
+function WizardRight({tabsData}) {
     return (
         <div className="wizard-right">
             <div className="tab-content text-justify">
-                <TabsContent tabIndexShow={tabIndexShow}/>
+                {
+                    tabsData.map((tab) =>
+                    <TabsContent
+                        key={tab.id}
+                        data={tab}/>
+                    )
+                }
             </div>
         </div>
     )
 }
+WizardRight.propTypes = {
+    tabsData: PropTypes.array
+};
 export default WizardRight
