@@ -291,12 +291,15 @@ body {
 }
 
 /*theme*/
-.sidebar-toggle,.sidebar,.page-header {
+.sidebar-toggle,.sidebar,.page-header,.footer {
     transition: background-color 1s;
 }
-
+.wrapper.dark .footer{
+    background-color:#1a1a27!important;
+    color: #fff;
+}
 .wrapper.dark .sidebar-toggle {
-    background-color: #1e1e2d;
+    background-color: #1a1a27;
 }
 
 .wrapper.dark .sidebar {
@@ -304,7 +307,7 @@ body {
 }
 
 .wrapper.dark .page-header {
-    background-color: #1e1e2d;
+    background-color: #1a1a27;
     color: #fff;
 }
 
