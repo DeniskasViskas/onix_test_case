@@ -1,6 +1,6 @@
 import React from "react";
 
-function Header() {
+function ContentHeader() {
     return (
         <div className="card-header text-center bg-white">
             <div className="card-title">
@@ -11,4 +11,4 @@ function Header() {
     )
 }
 
-export default Header
+export default ContentHeader
