@@ -1,0 +1,27 @@
+.table-custom{
+    border-collapse: collapse;
+    background-color: #fff;
+    overflow: hidden;
+}
+.table-custom .table-head{
+    table-layout: initial;
+}
+.table-custom .table-cell{
+    padding: .75rem 1rem;
+    vertical-align: baseline;
+}
+.table-custom .table-cell span{
+    font-size: .9rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    color: #b5b5c3;
+}
+.table-custom .table-row{
+    border-bottom: 1px solid #ebedf3;
+    width: 100%;
+}
+.table-custom .table-body .table-cell span{
+    color:#3f4254;
+    text-transform: none;
+}

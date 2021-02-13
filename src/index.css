@@ -8,6 +8,7 @@ body {
     background-color: #eef0f8;
     color: #3f4254;
     height: 100%;
+    font-family: Poppins,Helvetica,sans-serif;
 }
 
 .wrapper {
@@ -355,4 +356,29 @@ body {
 
 .custom-switch.custom-switch-xl .custom-control-input:checked ~ .custom-control-label::after {
     transform: translateX(calc(2.5rem - 0.25rem));
+}
+
+/*input style*/
+input.form-control,textarea.form-control {
+    padding: 1.5rem!important;
+    background-color: #f3f6f9!important;
+    border-color: #f3f6f9!important;
+}
+input.form-control:focus{
+    box-shadow: 0 0 0 0.2rem rgba(93, 120, 255,.25)
+}
+.btn{
+    padding: .75rem!important;
+}
+.btn-primary{
+    background-color: #5d78ff;
+}
+.btn-clear{
+    color: #b5b5c3;
+    background-color: transparent;
+    border-color: transparent;
+}
+.btn-clear:hover{
+    color: #5d78ff;
+    background-color: #f3f6f9;
 }

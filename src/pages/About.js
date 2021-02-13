@@ -1,9 +1,8 @@
 import React from "react";
+import BiographyTable from "../components/biography/BiographyTable";
 
 function About() {
-    return (
-        <h1>About Page</h1>
-    )
+    return (<BiographyTable/>)
 }
 
 export default About
