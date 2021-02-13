@@ -16,7 +16,7 @@ function HeaderNav() {
         <header className={"page-header"}>
             <ul className={"nav-list"}>
                 <li className={"nav-item"}>
-                    <NavLink activeClassName="active" exact className={'nav-link'} to="/">Home</NavLink>
+                    <NavLink activeClassName="active" exact className={'nav-link'} to="/home">Home</NavLink>
                 </li>
                 <li className={"nav-item"}>
                     <NavLink activeClassName="active" exact className={'nav-link'} to="/about">About</NavLink>

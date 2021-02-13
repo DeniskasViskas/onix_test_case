@@ -23,21 +23,21 @@ function Sidebar() {
                         <h4 className={"text-menu"}>{(isOpen) ? 'Application': '...'}</h4>
                     </li>
                     <li className={"menu-item"}>
-                        <a href="" className={"menu-link"}><i className="fab fa-artstation"/>
+                        <a href="/" className={"menu-link"}><i className="fab fa-artstation"/>
                             {
                                 isOpen && 'artstation'
                             }
                         </a>
                     </li>
                     <li className={"menu-item"}>
-                        <a href="" className={"menu-link"}><i className="fab fa-battle-net"/>
+                        <a href="/" className={"menu-link"}><i className="fab fa-battle-net"/>
                             {
                                 isOpen && 'battle net'
                             }
                         </a>
                     </li>
                     <li className={"menu-item"}>
-                        <a href="" className={"menu-link"}><i className="fab fa-angular"/>
+                        <a href="/" className={"menu-link"}><i className="fab fa-angular"/>
                             {
                                 isOpen && 'Angular'
                             }
@@ -47,7 +47,7 @@ function Sidebar() {
                         <h4 className={"text-menu"}>{(isOpen) ? 'Next Section': '...'}</h4>
                     </li>
                     <li className={"menu-item"}>
-                        <a href="" className={"menu-link"}><i className="fab fa-battle-net"/>
+                        <a href="/" className={"menu-link"}><i className="fab fa-battle-net"/>
                             {
                                 isOpen && 'battle net'
                             }

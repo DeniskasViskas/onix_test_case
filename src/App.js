@@ -3,10 +3,12 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
+    Redirect
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
+// import Redirect from "react-router-dom/es/Redirect";
 
 const ThemeStyle = React.createContext({
     theme: 'light',
@@ -20,11 +22,14 @@ function App() {
         <Router>
             <Layout>
                 <Switch>
-                    <Route path="/about">
-                        <About />
+                    <Route exact path="/">
+                        <Redirect to="/about" />
                     </Route>
-                    <Route path="/">
+                    <Route exact path="/home">
                         <Home />
+                    </Route>
+                    <Route exact path="/about">
+                        <About />
                     </Route>
                 </Switch>
             </Layout>
