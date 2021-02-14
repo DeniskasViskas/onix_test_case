@@ -17,6 +17,15 @@
     letter-spacing: .1rem;
     color: #b5b5c3;
 }
+.table-custom .cell-sortable:hover{
+    cursor: pointer;
+}
+.table-custom .cell-sortable span{
+    margin-right: 5px;
+}
+.table-custom .cell-sortable:hover i{
+    color:#5d78ff;
+}
 .table-custom .table-row{
     border-bottom: 1px solid #ebedf3;
     width: 100%;
