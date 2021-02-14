@@ -4,7 +4,7 @@ import TableRow from "./TableRow";
 import TableForm from "./TableForm";
 
 function BiographyTable() {
-    const arr = [
+    let biographyData = [
         {
             'year':2020,
             'event':'React tutorial'
@@ -18,9 +18,8 @@ function BiographyTable() {
             'event':'go to school'
         }
     ];
-    const [biographyData , setBiographyData] = useState(arr)
-    const [sortType ,setSortType] = useState('')
-    const [sortProp ,setSortProp] = useState('')
+    let sortType = '';
+    let sortProp = '';
     function sortByProp(prop) {
         return function(a, b) {
             if (a[prop] > b[prop]) {
@@ -32,19 +31,19 @@ function BiographyTable() {
         }
     }
     function sortData(prop,type) {
-        setSortProp(prop)
+        sortProp = prop
         biographyData.sort(sortByProp(prop));
         if (type === 'desc'){
             biographyData.reverse()
         }
-        (sortType === 'desc') ? setSortType('asc') : setSortType('desc')
-        setBiographyData(biographyData)
+        sortType = (sortType === 'desc') ? 'asc' : 'desc'
+        console.log(biographyData)
     }
     function add(data) {
-        setBiographyData(biographyData.concat(data))
+        console.log(biographyData.concat(data))
     }
     function remove(index) {
-        setBiographyData(
+        console.log(
             biographyData.filter((item,i)=>{
                 return i !== index;
             })
