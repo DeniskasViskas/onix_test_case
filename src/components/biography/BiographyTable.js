@@ -6,22 +6,29 @@ import TableForm from "./TableForm";
 function BiographyTable() {
     let biographyData = [
         {
-            'year':2020,
-            'event':'React tutorial'
+            'year': 2020,
+            'event': 'React tutorial'
         },
         {
-            'year':1992,
-            'event':'born'
+            'year': 1992,
+            'event': 'born'
         },
         {
-            'year':1999,
-            'event':'go to school'
+            'year': 1999,
+            'event': 'go to school'
         }
     ];
     let sortType = '';
     let sortProp = '';
+
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min //Максимум и минимум включаются
+    }
+
     function sortByProp(prop) {
-        return function(a, b) {
+        return function (a, b) {
             if (a[prop] > b[prop]) {
                 return 1;
             } else if (a[prop] < b[prop]) {
@@ -30,25 +37,72 @@ function BiographyTable() {
             return 0;
         }
     }
-    function sortData(prop,type) {
+
+    function sortData(prop, type) {
         sortProp = prop
         biographyData.sort(sortByProp(prop));
-        if (type === 'desc'){
+        if (type === 'desc') {
             biographyData.reverse()
         }
         sortType = (sortType === 'desc') ? 'asc' : 'desc'
         console.log(biographyData)
     }
-    function add(data) {
-        console.log(biographyData.concat(data))
+
+    function add(data, action) {
+        switch (action) {
+            case 'push':
+                biographyData = biographyData.concat(data)
+                break
+            case 'unshift':
+                biographyData = [data].concat(biographyData)
+                break
+            case 'index':
+                let index = getRandomIntInclusive(0, biographyData.length);
+                biographyData.splice(index, 0, data)
+                break
+        }
+        console.log(biographyData)
     }
+
     function remove(index) {
         console.log(
-            biographyData.filter((item,i)=>{
-                return i !== index;
+            biographyData.filter((item, i) => {
+                return i !== index
             })
         )
     }
+
+    function bubbleSort(prop) {
+        let n = biographyData.length;
+        for (let i = 0; i < n - 1; i++) {
+            for (let j = 0; j < n - 1 - i; j++) {
+                if (biographyData[j + 1][prop] < biographyData[j][prop]) {
+                    let t = biographyData[j + 1][prop]
+                    biographyData[j + 1][prop] = biographyData[j][prop]
+                    biographyData[j][prop] = t
+                }
+            }
+        }
+        console.log(biographyData)
+        return biographyData;
+    }
+
+    function selectionSort(prop){
+        console.log(biographyData)
+        let n = biographyData.length
+        for (let i = 0; i < n - 1; i++) {
+            let min = i
+            for (let j = i + 1; j < n; j++) {
+                if (biographyData[j][prop] < biographyData[min][prop]) min = j
+            }
+            let t = biographyData[min][prop]
+            biographyData[min][prop] = biographyData[i][prop]
+            biographyData[i][prop] = t
+        }
+        console.log(biographyData)
+        return biographyData;
+    }
+
     return (
         <div className="card custom-card p-0 col-lg-8 col-12 offset-lg-2 shadow">
             <div className="card-header bg-white">
@@ -64,29 +118,38 @@ function BiographyTable() {
             </div>
             <div className={"card-body p-0"}>
                 <div className={"table-responsive text-center "}>
+                    <div className={"btn-group"}>
+                        <div className={"btn btn-danger"} onClick={() => {bubbleSort('year')}}>
+                            Bubble Sort
+                        </div>
+                        <div className={"btn btn-success"} onClick={() => {selectionSort('year')}}>
+                            Selection Sort
+                        </div>
+                    </div>
+
                     <table className={"table table-custom"}>
                         <thead className={"table-head"}>
                         <tr className={"table-row"}>
                             <th className={"table-cell"}><span>id</span></th>
                             <th className={"table-cell cell-sortable"}>
-                                <span onClick={()=>sortData('year',sortType)}>year</span>
+                                <span onClick={() => sortData('year', sortType)}>year</span>
                                 {
-                                    sortProp ==='year' && sortType === 'asc' &&
+                                    sortProp === 'year' && sortType === 'asc' &&
                                     <i className="fas fa-long-arrow-alt-up"/>
                                 }
                                 {
-                                    sortProp ==='year' && sortType === 'desc' &&
+                                    sortProp === 'year' && sortType === 'desc' &&
                                     <i className="fas fa-long-arrow-alt-down"/>
                                 }
                             </th>
                             <th className={"table-cell cell-sortable"}>
-                                <span onClick={()=>sortData('event',sortType)}>event</span>
+                                <span onClick={() => sortData('event', sortType)}>event</span>
                                 {
-                                    sortProp ==='event' && sortType === 'asc' &&
+                                    sortProp === 'event' && sortType === 'asc' &&
                                     <i className="fas fa-long-arrow-alt-up"/>
                                 }
                                 {
-                                    sortProp ==='event' && sortType === 'desc' &&
+                                    sortProp === 'event' && sortType === 'desc' &&
                                     <i className="fas fa-long-arrow-alt-down"/>
                                 }
                             </th>
@@ -97,7 +160,7 @@ function BiographyTable() {
                         </thead>
                         <tbody className={"table-body"}>
                         {
-                            biographyData.map((item,index)=>
+                            biographyData.map((item, index) =>
                                 <TableRow key={index} item={item} index={index} remove={remove}/>
                             )
                         }
