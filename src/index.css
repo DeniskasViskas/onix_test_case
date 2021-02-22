@@ -382,3 +382,38 @@ input.form-control:focus{
     color: #5d78ff;
     background-color: #f3f6f9;
 }
+.btn.btn-primary {
+    color: #fff;
+    background-color: #3699ff;
+    border-color: #3699ff;
+}
+.btn.btn-secondary {
+    color: #3f4254;
+    background-color: #e4e6ef;
+    border-color: #e4e6ef;
+}
+.btn.btn-success {
+    color: #fff;
+    background-color: #1bc5bd;
+    border-color: #1bc5bd;
+}
+.btn.btn-warning {
+    color: #fff;
+    background-color: #ffa800;
+    border-color: #ffa800;
+}
+.btn.btn-danger {
+    color: #fff;
+    background-color: #f64e60;
+    border-color: #f64e60;
+}
+.btn.btn-info {
+    color: #fff;
+    background-color: #8950fc;
+    border-color: #8950fc;
+}
+.btn.btn-light {
+    color: #7e8299;
+    background-color: #f3f6f9;
+    border-color: #f3f6f9;
+}
