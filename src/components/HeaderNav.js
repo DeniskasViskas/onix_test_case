@@ -5,7 +5,6 @@ import {ThemeStyle} from "../App";
 function HeaderNav() {
     const {theme,setTheme} = useContext(ThemeStyle);
     const changeMode = ()=>{
-        console.log(theme)
         if (theme === 'light'){
             return setTheme('dark')
         }else{

@@ -1,21 +1,35 @@
-import React, {useState} from "react";
+import React from "react";
 import "./TableCSS.css"
 import TableRow from "./TableRow";
 import TableForm from "./TableForm";
+const SORT_ASC ='asc'
+const SORT_DESC= 'desc';
 
 function BiographyTable() {
     let biographyData = [
         {
             'year': 2020,
-            'event': 'React tutorial'
+            'event': 'React tutorial',
+            'additional_info':{
+                'photo':[],
+                'person':['person1','person2']
+            }
         },
         {
             'year': 1992,
-            'event': 'born'
+            'event': 'born',
+            'additional_info':{
+                'photo':[],
+                'person':['person1']
+            }
         },
         {
             'year': 1999,
-            'event': 'go to school'
+            'event': 'go to school',
+            'additional_info':{
+                'photo':[],
+                'person':['person3']
+            }
         }
     ];
     let sortType = '';
@@ -41,24 +55,26 @@ function BiographyTable() {
     function sortData(prop, type) {
         sortProp = prop
         biographyData.sort(sortByProp(prop));
-        if (type === 'desc') {
+        if (type === SORT_DESC) {
             biographyData.reverse()
         }
-        sortType = (sortType === 'desc') ? 'asc' : 'desc'
+        sortType = (sortType === SORT_DESC) ? SORT_ASC : SORT_DESC
         console.log(biographyData)
     }
 
     function add(data, action) {
         switch (action) {
             case 'push':
-                biographyData = biographyData.concat(data)
+                // biographyData = biographyData.concat(data)
+                biographyData = [...biographyData,{...data}]
                 break
             case 'unshift':
-                biographyData = [data].concat(biographyData)
+                // biographyData = [data].concat(biographyData)
+                biographyData = [{...data},...biographyData]
                 break
             case 'index':
                 let index = getRandomIntInclusive(0, biographyData.length);
-                biographyData.splice(index, 0, data)
+                biographyData.splice(index, 0, {...data})
                 break
         }
         console.log(biographyData)
@@ -118,15 +134,6 @@ function BiographyTable() {
             </div>
             <div className={"card-body p-0"}>
                 <div className={"table-responsive text-center "}>
-                    <div className={"btn-group"}>
-                        <div className={"btn btn-danger"} onClick={() => {bubbleSort('year')}}>
-                            Bubble Sort
-                        </div>
-                        <div className={"btn btn-success"} onClick={() => {selectionSort('year')}}>
-                            Selection Sort
-                        </div>
-                    </div>
-
                     <table className={"table table-custom"}>
                         <thead className={"table-head"}>
                         <tr className={"table-row"}>
@@ -134,24 +141,27 @@ function BiographyTable() {
                             <th className={"table-cell cell-sortable"}>
                                 <span onClick={() => sortData('year', sortType)}>year</span>
                                 {
-                                    sortProp === 'year' && sortType === 'asc' &&
+                                    sortProp === 'year' && sortType === SORT_ASC &&
                                     <i className="fas fa-long-arrow-alt-up"/>
                                 }
                                 {
-                                    sortProp === 'year' && sortType === 'desc' &&
+                                    sortProp === 'year' && sortType === SORT_DESC &&
                                     <i className="fas fa-long-arrow-alt-down"/>
                                 }
                             </th>
                             <th className={"table-cell cell-sortable"}>
                                 <span onClick={() => sortData('event', sortType)}>event</span>
                                 {
-                                    sortProp === 'event' && sortType === 'asc' &&
+                                    sortProp === 'event' && sortType === SORT_ASC &&
                                     <i className="fas fa-long-arrow-alt-up"/>
                                 }
                                 {
-                                    sortProp === 'event' && sortType === 'desc' &&
+                                    sortProp === 'event' && sortType === SORT_DESC &&
                                     <i className="fas fa-long-arrow-alt-down"/>
                                 }
+                            </th>
+                            <th className={"table-cell"}>
+                                <span>Person</span>
                             </th>
                             <th className={"table-cell"}>
                                 <span>action</span>
@@ -166,6 +176,14 @@ function BiographyTable() {
                         }
                         </tbody>
                     </table>
+                    <div className={"btn-group"}>
+                        <div className={"btn btn-danger"} onClick={() => {bubbleSort('year')}}>
+                            Bubble Sort
+                        </div>
+                        <div className={"btn btn-success"} onClick={() => {selectionSort('year')}}>
+                            Selection Sort
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
