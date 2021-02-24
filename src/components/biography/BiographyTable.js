@@ -104,7 +104,6 @@ function BiographyTable() {
     }
 
     function selectionSort(prop){
-        console.log(biographyData)
         let n = biographyData.length
         for (let i = 0; i < n - 1; i++) {
             let min = i
