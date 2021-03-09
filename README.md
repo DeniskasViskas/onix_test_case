@@ -15,6 +15,6 @@ The page will reload if you make edits.\
 You will also see any lint errors in the console.
 ## Run Server
 From `server` dir run `node index.js`
-Server well started on [http://localhost:3001](http://localhost:3001)
+Server will started on [http://localhost:3001](http://localhost:3001)
 ### Preview
 ![alt text](preview.jpg)
