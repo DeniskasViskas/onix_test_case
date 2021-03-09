@@ -15,10 +15,13 @@ function HeaderNav() {
         <header className={"page-header"}>
             <ul className={"nav-list"}>
                 <li className={"nav-item"}>
-                    <NavLink activeClassName="active" exact className={'nav-link'} to="/home">Home</NavLink>
+                    <NavLink activeClassName="active" exact className={'nav-link'} to="/week_3">week 3</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                    <NavLink activeClassName="active" exact className={'nav-link'} to="/about">About</NavLink>
+                    <NavLink activeClassName="active" exact className={'nav-link'} to="/week_5">week 5</NavLink>
+                </li>
+                <li className={"nav-item"}>
+                    <NavLink activeClassName="active" exact className={'nav-link'} to="/week_6">week 6</NavLink>
                 </li>
             </ul>
 

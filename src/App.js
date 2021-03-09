@@ -8,6 +8,7 @@ import {
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import About from "./pages/About";
+import Todo from "./pages/Todo";
 // import Redirect from "react-router-dom/es/Redirect";
 
 const ThemeStyle = React.createContext({
@@ -23,13 +24,16 @@ function App() {
             <Layout>
                 <Switch>
                     <Route exact path="/">
-                        <Redirect to="/about" />
+                        <Redirect to="/week_3" />
                     </Route>
-                    <Route exact path="/home">
+                    <Route exact path="/week_3">
                         <Home />
                     </Route>
-                    <Route exact path="/about">
+                    <Route exact path="/week_5">
                         <About />
+                    </Route>
+                    <Route exact path="/week_6">
+                        <Todo />
                     </Route>
                 </Switch>
             </Layout>

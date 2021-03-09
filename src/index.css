@@ -16,7 +16,9 @@ body {
     display: -ms-flexbox;
     display: flex;
 }
-
+.text-through{
+    text-decoration: line-through;
+}
 .border-right {
     border-right: 1px solid #ebedf3 !important;
 }
@@ -60,7 +62,10 @@ body {
     z-index: 1;
     display: flex;
 }
-
+.nav-item{
+    min-width: 80px;
+    text-align: center;
+}
 .page-header .nav-list {
     list-style: none;
     display: flex;
@@ -334,7 +339,55 @@ body {
 .custom-switch.custom-switch-lg .custom-control-input:checked ~ .custom-control-label::after {
     transform: translateX(calc(2rem - 0.25rem));
 }
+/*margin*/
+.ml-6{
+    margin-left: 3rem;
+}
+.mr-6{
+    margin-right: 3rem;
+}
+.mt-6{
+    margin-top: 3rem;
+}
+.mb-6{
+    margin-bottom: 3rem;
+}
+.mx-6{
+    margin: 3rem;
+}
+/*padding*/
+.pl-4{
+    padding-left: 1rem;
+}
+.pr-4{
+    padding-right: 1rem;
+}
+.pt-4{
+    padding-top: 1rem;
+}
+.pb-4{
+    padding-bottom: 1rem;
+}
+.px-4{
+    padding: 1rem!important;
+}
+/*flex style*/
+.flex-row-auto{
+    -webkit-box-flex: 0;
+    -ms-flex: 0 0 auto;
+    flex: 0 0 auto;
+}
+.flex-row-fluid{
+    -webkit-box-flex: 1;
+    flex: 1 auto;
+    -ms-flex: 1 0 0px;
+    min-width: 0;
+}
 
+/*badge*/
+.badge-primary{
+    background-color: #5d78ff;
+}
 /* for xl switch */
 
 .custom-switch.custom-switch-xl .custom-control-label {
