@@ -14,7 +14,7 @@ class NewTask extends React.Component {
     }
 
     handleOpen() {
-        this.setState({show: !this.state.show})
+        this.setState(({show})=>({show:!show}))
     }
 
     inputHandler(event) {
