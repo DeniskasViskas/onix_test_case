@@ -1,6 +1,6 @@
 const express = require('express')
 const todoRouter = require('./routes/todoRoute')
-const cors=require('cors');
+const cors = require('cors');
 
 
 const server = express()
@@ -23,7 +23,7 @@ server.use(function (req, res, next) {
     // Pass to next layer of middleware
     next();
 });
-server.use('/todo',todoRouter)
+server.use('/todo', todoRouter)
 const start = async () => {
     try {
         server.listen(3001, () => console.log(`Server started on port 3001`))
