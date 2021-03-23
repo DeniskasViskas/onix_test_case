@@ -22,3 +22,4 @@ Example request/response on [postman-doc](https://documenter.getpostman.com/view
 
 ### Preview
 ![alt text](preview.jpg)
+
