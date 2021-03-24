@@ -2,39 +2,11 @@ import React from "react";
 import "../components/todo/todo.css";
 import TodoList from "../components/todo/TodoList";
 import TodoTasks from "../components/todo/TotoTasks";
+import {DragDropContext} from "react-beautiful-dnd";
+import {Alert} from "react-bootstrap";
 
-const todos = [
-    // {
-    //     id: 1,
-    //     category: 'home',
-    //     is_complete: false,
-    //     is_important: false,
-    //     is_stared: false,
-    //     title: "купить хлеб!",
-    //     time: '2020-12-17T03:24:00'
-    // },
-    // {
-    //     id: 2,
-    //     category: 'work',
-    //     is_complete: true,
-    //     is_important: true,
-    //     is_stared: false,
-    //     title: "выучить реакт",
-    //     time: '2020-12-11T03:24:00'
-    // },
-    // {
-    //     id: 3,
-    //     category: 'work',
-    //     is_complete: false,
-    //     is_important: false,
-    //     is_stared: true,
-    //     title: "выучить реакт",
-    //     time: '2020-10-17T12:33:00'
-    // }
-];
-const categories = [
-    // {name:'home',count:0},{name:'work',count:0}
-]
+const todos = [];
+const categories = []
 
 class Todo extends React.Component {
     constructor(props) {
@@ -44,10 +16,13 @@ class Todo extends React.Component {
         this.createTack = this.createTack.bind(this)
         this.getCategoryTask = this.getCategoryTask.bind(this)
         this.getCategory = this.getCategory.bind(this)
+        this.check_img_url = '';
         this.state = {
             todos: todos,
             categories: categories,
-            activeCategory: ''
+            activeCategory: '',
+            img_load_status:true,
+            check_img_url:'',
         }
     }
 
@@ -140,6 +115,29 @@ class Todo extends React.Component {
                 }
             })
     }
+
+    DragHandler = event => {
+        const {destination, source} = event;
+        if (destination) {
+            let from = source.index;
+            let to = destination.index;
+            // let item = this.state.todos.splice(from,1)
+            // this.state.todos.splice(to,0,item[0])
+            this.state.todos.map((item) => {
+                if (item.index === from) {
+                    return item.index = to
+                }
+                if (item.index === to) {
+                    return item.index = from
+                }
+                return true;
+            })
+            this.state.todos.sort((a, b) => {
+                return a.index - b.index;
+            })
+        }
+    }
+
     render() {
         return (
             <div className={'container-fluid'}>
@@ -153,12 +151,58 @@ class Todo extends React.Component {
                         />
                     </div>
                     <div className={'flex-row-fluid ml-6'}>
-                        <TodoTasks
-                            activeCategory={this.state.activeCategory}
-                            todos={this.state.todos}
-                            markTack={this.markTack}
-                            createTack={this.createTack}
-                        />
+                        <DragDropContext onDragEnd={this.DragHandler}>
+                            <TodoTasks
+                                activeCategory={this.state.activeCategory}
+                                todos={this.state.todos}
+                                markTack={this.markTack}
+                                createTack={this.createTack}
+                            />
+                        </DragDropContext>
+                    </div>
+                </div>
+                <div className={'flex-row'}>
+                    <div className={'flex-row-auto'}>
+                        <div className="flex-row-fluid">
+                            <div className={'card custom-card mb-6 mt-6 col-lg-5 col-12'}>
+                                <div className="card-header bg-white">
+                                    <div className="card-title">
+                                        <h3 className={'text-uppercase'}>Check Image</h3>
+                                        <div className={"text-muted"}>by ULR</div>
+                                    </div>
+                                </div>
+                                <div className={'card-body text-center'}>
+                                    <form action="">
+                                        <div className="input-group mb-3">
+                                            <input type="text" name={'url'} className="form-control" required
+                                                   placeholder="type url"
+                                                   onChange={event => this.check_img_url  = event.target.value}
+                                            />
+                                            <div className="input-group-append">
+                                                <button className="btn btn-primary" type={"submit"} onClick={(event)=>{
+                                                    event.preventDefault()
+                                                    this.setState({check_img_url:this.check_img_url})
+                                                }} >Chek</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <div>
+                                        {
+                                            this.state.check_img_url.length > 1  &&
+                                            // eslint-disable-next-line jsx-a11y/img-redundant-alt
+                                                <img src={this.state.check_img_url} alt={"chek image"}
+                                                     width={100} height={100}
+                                                     onError={()=>this.setState({img_load_status:false})}
+                                                     onLoad={()=>this.setState({img_load_status:true})}
+                                                />
+                                        }
+                                        <Alert variant={'danger'} show={!this.state.img_load_status}>
+                                            Url <b>{this.state.check_img_url}</b>  not <b>available</b>
+                                        </Alert>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

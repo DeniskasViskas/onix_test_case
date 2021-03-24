@@ -64,6 +64,7 @@
 }
 .list .list-item-icon:hover,.list .list-item-icon.active{
     color: #5d78ff;
+    cursor: pointer;
 }
 .card.custom-card{
     height: 100%;
@@ -73,4 +74,17 @@
 }
 .list .list-item{
     border-radius: .7rem;
+}
+.list .list-item-icon i{
+    font-size: 1.2rem;
+}
+input[type=checkbox]
+{
+    /* Double-sized Checkboxes */
+    -ms-transform: scale(1.2); /* IE */
+    -moz-transform: scale(1.2); /* FF */
+    -webkit-transform: scale(1.2); /* Safari and Chrome */
+    -o-transform: scale(1.2); /* Opera */
+    transform: scale(1.2);
+    padding: 10px;
 }

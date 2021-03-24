@@ -9,6 +9,7 @@ const categories =[
 const tasks =[
     {
         id: 1,
+        index:0,
         category: 'home',
         is_complete: false,
         is_important: false,
@@ -18,6 +19,7 @@ const tasks =[
     },
     {
         id: 2,
+        index:1,
         category: 'work',
         is_complete: true,
         is_important: true,
@@ -27,6 +29,7 @@ const tasks =[
     },
     {
         id: 3,
+        index:2,
         category: 'work',
         is_complete: false,
         is_important: false,

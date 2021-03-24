@@ -1,6 +1,7 @@
 import React from "react";
 import Task from "./Task";
 import NewTask from "./NewTask";
+import {Droppable} from "react-beautiful-dnd";
 import {Toast} from "react-bootstrap";
 
 class TodoTasks extends React.Component {
@@ -16,9 +17,9 @@ class TodoTasks extends React.Component {
 
     showToast(toastMessage) {
         this.setState({toastMessage, toastShow: !this.state.toastShow})
-        setTimeout(()=>{
-            this.setState({toastMessage:'',toastShow:!this.state.toastShow})
-        },1500)
+        setTimeout(() => {
+            this.setState({toastMessage: '', toastShow: !this.state.toastShow})
+        }, 1500)
     }
 
     createTack(title) {
@@ -46,36 +47,37 @@ class TodoTasks extends React.Component {
                     </div>
                     <div className={'px-4'}>
                         <div className={'d-flex justify-content-center'}>
-                            <NewTask createTask={this.createTack} showToast={this.showToast} activeCategory={this.props.activeCategory}/>
+                            <NewTask createTask={this.createTack} showToast={this.showToast}
+                                     activeCategory={this.props.activeCategory}/>
                         </div>
                     </div>
-                    <div style={{
-                        position:'relative',
-                        width:'100%'
-                    }}>
-                        <Toast style={{
-                            position: 'absolute',
-                            top: 0,
-                            right: "50%",
-                            zIndex: 1,
-                            opacity: 1
-                        }} show={this.state.toastShow}>
+                    <div style={{position: 'relative', width: '100%'}}>
+                        <Toast style={{position: 'absolute', top: 0, right: "50%", zIndex: 1, opacity: 1}}
+                               show={this.state.toastShow}>
                             <Toast.Body
                                 style={{background: '#5d78ff', color: '#fff'}}>{this.state.toastMessage}</Toast.Body>
                         </Toast>
                     </div>
                     <div className={'card-body px-4'}>
-                        <div className={'list'}>
-                            {
-                                this.props.todos && this.props.todos.length > 0 ?
-                                    this.props.todos.map((item) => <Task
-                                        key={item.id}
-                                        data={item}
-                                        markTack={this.props.markTack}
-                                    />) :
-                                    <p className={'text-center animate__bounceIn'}>Empty</p>
-                            }
-                        </div>
+                        <Droppable droppableId={'tasks_dnd'}>
+                            {(provided) => (
+                                <div
+                                    className={'list'}
+                                    ref={provided.innerRef}
+                                    {...provided.droppableProps}>
+                                    {
+                                        // this.props.todos && this.props.todos.length > 0 ?
+                                            this.props.todos.map((item) => <Task
+                                                key={item.id}
+                                                data={item}
+                                                markTack={this.props.markTack}
+                                            />) //:
+                                            // <p className={'text-center animate__bounceIn'}>Empty</p>
+                                    }
+                                    {provided.placeholder}
+                                </div>
+                                )}
+                        </Droppable>
                     </div>
                 </div>
             </>
