@@ -63,7 +63,7 @@ body {
     display: flex;
 }
 .nav-item{
-    min-width: 80px;
+    min-width: 100px;
     text-align: center;
 }
 .page-header .nav-list {
