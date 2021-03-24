@@ -168,7 +168,7 @@ class Todo extends React.Component {
                                 <div className="card-header bg-white">
                                     <div className="card-title">
                                         <h3 className={'text-uppercase'}>Check Image</h3>
-                                        <div className={"text-muted"}>by ULR</div>
+                                        <div className={"text-muted"}>by Url</div>
                                     </div>
                                 </div>
                                 <div className={'card-body text-center'}>
