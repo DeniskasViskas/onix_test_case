@@ -21,7 +21,7 @@ function HeaderNav() {
                     <NavLink activeClassName="active" exact className={'nav-link'} to="/week_5">week 5</NavLink>
                 </li>
                 <li className={"nav-item"}>
-                    <NavLink activeClassName="active" exact className={'nav-link'} to="/week_6">week 6</NavLink>
+                    <NavLink activeClassName="active" exact className={'nav-link'} to="/week_6">week 6,7</NavLink>
                 </li>
             </ul>
 
