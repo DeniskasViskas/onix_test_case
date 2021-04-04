@@ -59,9 +59,7 @@ function BiographyTable() {
 
     function remove(index) {
         console.log(biographyData,'start delete')
-        let arr = biographyData.filter((item, i) => {
-            return i !== index
-        })
+        let arr = biographyData.filter((item, i) =>i !== index)
         console.log(arr,'end delete')
     }
 

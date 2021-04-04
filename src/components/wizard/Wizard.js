@@ -3,20 +3,16 @@ import WizardLeft from "./wizard_components/WizardLeft";
 import WizardRight from "./wizard_components/WizardRight";
 import PropTypes from "prop-types";
 //просто вынес данные в отдельный файл - не удобно работать с этим файлом.
-const {arr} = require('./wizard_data')
+import {arr} from './wizard_data';
 
 function Wizard() {
     const [data, setTabData] = useState(arr);
     function changeTab(id) {
         setTabData(
-            data.map(tab=>{
-                if (tab.id ===id){
-                    tab.active = true;
-                }else{
-                    tab.active = false;
-                }
-                return tab
-            })
+            data.map(tab=>({
+                ...tab,
+                active: tab.id === id
+            }))
         )
     }
     return (

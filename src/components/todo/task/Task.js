@@ -7,6 +7,7 @@ class Task extends React.Component {
         this.item = this.props.data
     }
     render() {
+        const {data,markTack} = this.props
         return (
             <Draggable draggableId={this.item.id.toString()} index={this.item.index}>
                 {provided=>(
@@ -14,35 +15,35 @@ class Task extends React.Component {
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         ref={provided.innerRef}>
-                        <div className={'d-flex list-item px-4 animate__animated'+(this.props.data.is_complete ? ' complete':'')}>
+                        <div className={'d-flex list-item px-4 animate__animated'+(data.is_complete ? ' complete':'')}>
                             <div className={'d-flex align-items-center'}>
                                 <div className={'d-flex align-items-center'}>
-                                    <input type="checkbox" className={'mr-3'} checked={this.props.data.is_complete}
-                                           onChange={() => {this.props.markTack(this.props.data.id,'is_complete')}}/>
-                                    <div className={'mr-3 list-item-icon' + (this.props.data.is_stared ? ' active' : '')}
+                                    <input type="checkbox" className={'mr-3'} checked={data.is_complete}
+                                           onChange={() => {markTack(data.id,'is_complete')}}/>
+                                    <div className={'mr-3 list-item-icon' + (data.is_stared ? ' active' : '')}
                                          title="star"
-                                         onClick={() => {this.props.markTack(this.props.data.id,'is_stared')}}
+                                         onClick={() => {markTack(data.id,'is_stared')}}
                                     >
                                         <i className={'fas fa-star'}/>
                                     </div>
-                                    <div className={'mr-3 list-item-icon' + (this.props.data.is_important ? ' active' : '')}
+                                    <div className={'mr-3 list-item-icon' + (data.is_important ? ' active' : '')}
                                          title="important"
-                                         onClick={() => {this.props.markTack(this.props.data.id,'is_important')}}
+                                         onClick={() => {markTack(data.id,'is_important')}}
                                     >
                                         <i className={'fas fa-tag'}/>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex-grow-1 align-self-center" data-toggle="view">
-                                <div className={'font-weight-bolder' + (this.props.data.is_complete ? ' text-through' : '')}>
-                                    {this.props.data.title}
+                                <div className={'font-weight-bolder' + (data.is_complete ? ' text-through' : '')}>
+                                    {data.title}
                                 </div>
                             </div>
                             <div className="flex-grow-1 align-self-center" data-toggle="view">
-                                <span className={'badge badge-info'}>{this.props.data.category}</span>
+                                <span className={'badge badge-info'}>{data.category}</span>
                             </div>
                             <div className="d-flex align-items-center justify-content-end flex-wrap">
-                                <div className="font-weight-bolder">{new Date(this.props.data.time).toDateString()}</div>
+                                <div className="font-weight-bolder">{new Date(data.time).toDateString()}</div>
                             </div>
                         </div>
                     </div>

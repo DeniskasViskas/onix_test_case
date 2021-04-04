@@ -423,6 +423,4 @@ const arr = [
             '                </ul>'
     }
 ]
-module.exports ={
-    arr
-}
+export {arr}

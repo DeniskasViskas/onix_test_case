@@ -1,46 +1,50 @@
 import React from "react";
-import './todo.css';
-import List from "./List";
+import '../todo.css';
+import CategoryItem from "./CategoryItem";
 
-class TodoList extends React.Component {
+class Categories extends React.Component {
     constructor(props) {
         super(props);
-        this.inputHandler = this.inputHandler.bind(this)
-        this.showNewCategoryHandler = this.showNewCategoryHandler.bind(this)
         this.state = {
             showNewCategoryForm: false,
             newCategoryName: '',
             count: 0
         }
+        this.pressed = new Set()
     }
 
-    inputHandler(event) {
+    inputHandler = (event) => {
         this.setState({newCategoryName: event.target.value})
     }
-    showNewCategoryHandler(){
+    showNewCategoryHandler = () =>{
         this.setState(({showNewCategoryForm})=>({showNewCategoryForm:!showNewCategoryForm}))
     }
-
-    componentDidMount() {
-        let e  = this;
-        let pressed = new Set();
-        document.addEventListener("keydown",function (event){
-            let codes = ["KeyN","KeyC"]
-            pressed.add(event.code)
-            for (let code of codes) { // все ли клавиши из набора нажаты?
-                if (!pressed.has(code)) {
-                    return;
-                }
+    handlerKeyDown = (event)=>{
+        let codes = ["KeyN","KeyC"]
+        this.pressed.add(event.code)
+        for (let code of codes) { // все ли клавиши из набора нажаты?
+            if (!this.pressed.has(code)) {
+                return;
             }
-            pressed.clear()
-            e.showNewCategoryHandler()
-        });
-        document.addEventListener('keyup', function(event) {
-            pressed.delete(event.code);
-        });
+        }
+        this.pressed.clear()
+        this.showNewCategoryHandler()
+    }
+    handlerKeyUp = (event)=>{
+        this.pressed.delete(event.code);
+    }
+    componentDidMount() {
+        document.addEventListener("keydown",this.handlerKeyDown);
+        document.addEventListener('keyup', this.handlerKeyUp);
+    }
+    componentWillUnmount() {
+        document.removeEventListener("keydown",this.handlerKeyDown,false);
+        document.removeEventListener('keyup', this.handlerKeyUp,false);
     }
 
     render() {
+        const {categories,createCategory} = this.props
+        const {showNewCategoryForm,newCategoryName} = this.state
         return (
             <div className={'card custom-card p-0'}>
                 <div className={'card-body px-4'}>
@@ -49,22 +53,22 @@ class TodoList extends React.Component {
                             Category
                         </div>
                         {
-                            this.props.categories.map((item, index) => {
-                                return <List
+                            categories.map((item, index) => (
+                                <CategoryItem
                                     title={item.name}
                                     count={item.count}
                                     key={index}
                                     changeList={(val) => this.props.changeList(val)}
                                     isActive={(item.name === this.props.activeCategory)}
                                 />
-                            })
+                                ))
                         }
                         <div className={'navi-item'}
                              onClick={this.showNewCategoryHandler}>
                             <div className={'navi-link'}>
                                 <span className={'navi-icon'}>
                                     {
-                                        this.state.showNewCategoryForm ?
+                                        showNewCategoryForm ?
                                             <i className="fas fa-chevron-down"/> :
                                             <i className="fas fa-chevron-right"/>
                                     }
@@ -75,16 +79,16 @@ class TodoList extends React.Component {
                             </div>
                         </div>
                         {
-                            this.state.showNewCategoryForm &&
+                            showNewCategoryForm &&
                             <div className={'navi-item mt-2'}>
                                 <div className="input-group mb-3">
-                                    <input type="text" value={this.state.newCategoryName} name={'new_cat_name'}
+                                    <input type="text" value={newCategoryName} name={'new_cat_name'}
                                            className="form-control" placeholder="Category name"
                                            onChange={this.inputHandler}
                                     />
                                     <div className="input-group-append">
                                         <div className="btn btn-primary"
-                                             onClick={() => this.props.createCategory(this.state.newCategoryName)}>
+                                             onClick={() => createCategory(newCategoryName)}>
                                             <i className={"fa fa-plus"}/>
                                         </div>
                                     </div>
@@ -98,4 +102,4 @@ class TodoList extends React.Component {
     }
 }
 
-export default TodoList
+export default Categories

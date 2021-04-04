@@ -1,10 +1,10 @@
 import React from "react";
 import "../components/todo/todo.css";
-import TodoList from "../components/todo/TodoList";
-import TodoTasks from "../components/todo/TotoTasks";
+import Categories from "../components/todo/category/Categories";
 import {DragDropContext} from "react-beautiful-dnd";
-import {Alert} from "react-bootstrap";
 import CustomDnD from "../components/todo/CustomDnD";
+import Tasks from "../components/todo/task/Tasks";
+import {Alert} from "react-bootstrap";
 
 const todos = [];
 const categories = []
@@ -138,7 +138,7 @@ class Todo extends React.Component {
             <div className={'container-fluid'}>
                 <div className={'d-flex flex-row'}>
                     <div className={'flex-row-auto'}>
-                        <TodoList
+                        <Categories
                             categories={categories}
                             changeList={(val) => this.setState({activeCategory: val})}
                             activeCategory={activeCategory}
@@ -147,7 +147,7 @@ class Todo extends React.Component {
                     </div>
                     <div className={'flex-row-fluid ml-6'}>
                         <DragDropContext onDragEnd={this.DragHandler}>
-                            <TodoTasks
+                            <Tasks
                                 activeCategory={activeCategory}
                                 todos={todos}
                                 markTack={this.markTack}

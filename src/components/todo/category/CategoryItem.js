@@ -1,6 +1,6 @@
 import React from "react";
 
-class List extends React.Component{
+class CategoryItem extends React.Component{
     render() {
         const {title,count,isActive,changeList} = this.props
         return(
@@ -16,4 +16,4 @@ class List extends React.Component{
         )
     }
 }
-export default List
+export default CategoryItem

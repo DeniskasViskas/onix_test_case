@@ -7,13 +7,13 @@ function WizardLeft({tabsData,onTabClick}) {
         <div className={"wizard-left border-right"}>
             <ul className="nav nav-tabs d-inline-block" id="myTab" role="tablist">
                 {
-                    tabsData.map((tab)=>{
-                        return <TabsHeader
+                    tabsData.map((tab)=>(
+                        <TabsHeader
                             key={tab.id}
                             data={tab}
                             onTabClick={onTabClick}
                         />
-                    })
+                    ))
                 }
             </ul>
         </div>

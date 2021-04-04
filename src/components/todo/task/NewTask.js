@@ -6,33 +6,37 @@ import Button from "react-bootstrap/Button";
 class NewTask extends React.Component {
     constructor(props) {
         super(props);
-        this.handleOpen = this.handleOpen.bind(this)
-        this.inputHandler = this.inputHandler.bind(this)
         this.state = {
             show: false,
             taskName: '',
         }
+        this.pressed = new Set();
+    }
+    handlerKeyDown = (event) => {
+        let codes = ["KeyN","KeyT"]
+        this.pressed.add(event.code)
+        const is_combination_pressed = codes.every((code)=>{
+            return this.pressed.has(code);
+        })
+        if (is_combination_pressed){
+            this.pressed.clear()
+            this.handleOpen()
+        }
+        console.log('as')
+    }
+    handlerKeyUp = (event) =>{
+        this.pressed.delete(event.code);
     }
     componentDidMount() {
-        let e  = this;
-        let pressed = new Set();
-        document.addEventListener("keydown",function (event){
-            let codes = ["KeyN","KeyT"]
-            pressed.add(event.code)
-            for (let code of codes) { // все ли клавиши из набора нажаты?
-                if (!pressed.has(code)) {
-                    return;
-                }
-            }
-            pressed.clear()
-            e.handleOpen()
-        });
-        document.addEventListener('keyup', function(event) {
-            pressed.delete(event.code);
-        });
+        document.addEventListener("keydown",this.handlerKeyDown);
+        document.addEventListener('keyup', this.handlerKeyUp);
+    }
+    componentWillUnmount() {
+        document.removeEventListener("keydown",this.handlerKeyDown,false);
+        document.removeEventListener('keyup', this.handlerKeyUp,false);
     }
 
-    handleOpen() {
+    handleOpen = () => {
         if (this.props.activeCategory === ''){
             this.props.showToast('Please select category first')
         }else{
@@ -40,24 +44,26 @@ class NewTask extends React.Component {
         }
     }
 
-    inputHandler(event) {
+    inputHandler = (event) => {
         this.setState({taskName: event.target.value})
     }
 
     render() {
+        const {taskName,show} = this.state
+        const {createTask} = this.props
         return (
             <>
                 <div className={'btn btn-sm btn-primary'} onClick={this.handleOpen}>
                     <i className={"fa fa-plus mr-3"}/>
                     New Task <br/><kbd><kbd>N</kbd> + <kbd>T</kbd></kbd>
                 </div>
-                <Modal show={this.state.show} onHide={this.handleOpen}>
+                <Modal show={show} onHide={this.handleOpen}>
                     <Modal.Header closeButton>
                         <Modal.Title>Create new Task</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div className={"form-group"}>
-                            <input id={'asdda'} type="text" className={'form-control'} value={this.state.taskName}
+                            <input id={'list'} type="text" className={'form-control'} value={taskName}
                                    onChange={this.inputHandler}
                                    placeholder={'title'}/>
                         </div>
@@ -66,7 +72,7 @@ class NewTask extends React.Component {
                         <Button variant="secondary" onClick={this.handleOpen}>
                             Cancel
                         </Button>
-                        <Button type={"submit"} variant="primary" onClick={() => this.props.createTask(this.state.taskName)}>
+                        <Button type={"submit"} variant="primary" onClick={() => createTask(taskName)}>
                             Add
                         </Button>
                     </Modal.Footer>

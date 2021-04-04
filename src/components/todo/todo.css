@@ -88,3 +88,27 @@ input[type=checkbox]
     transform: scale(1.2);
     padding: 10px;
 }
+.toast_container{
+    position: relative;
+    width: 100%
+}
+.toast-block{
+    position: absolute;
+    top: 0;
+    right: 50%;
+    z-index:1;
+    opacity: 1
+}
+.toast-body{
+    background: #5d78ff;
+    color: #fff;
+}
+.custom_dnd_list{
+    list-style: none;
+}
+.custom_dnd_item{
+    padding: 10px;
+    border-radius: 5px;
+    background: #f3f6f9;
+    margin-bottom: 10px;
+}
