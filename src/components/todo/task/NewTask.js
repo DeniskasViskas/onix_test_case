@@ -15,23 +15,23 @@ class NewTask extends React.Component {
     handlerKeyDown = (event) => {
         let codes = ["KeyN","KeyT"]
         this.pressed.add(event.code)
-        const is_combination_pressed = codes.every((code)=>{
-            return this.pressed.has(code);
-        })
+        const is_combination_pressed = codes.every((code)=>this.pressed.has(code))
         if (is_combination_pressed){
             this.pressed.clear()
             this.handleOpen()
         }
-        console.log('as')
     }
     handlerKeyUp = (event) =>{
         this.pressed.delete(event.code);
     }
     componentDidMount() {
+        //региструем события
         document.addEventListener("keydown",this.handlerKeyDown);
         document.addEventListener('keyup', this.handlerKeyUp);
     }
     componentWillUnmount() {
+        // при "уничтожений" компонента нужно удалить слушателей события, что бы они не отработывали на других страницах приложения
+
         document.removeEventListener("keydown",this.handlerKeyDown,false);
         document.removeEventListener('keyup', this.handlerKeyUp,false);
     }

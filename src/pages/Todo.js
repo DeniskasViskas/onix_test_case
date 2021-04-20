@@ -183,8 +183,7 @@ class Todo extends React.Component {
                                 <div>
                                     {
                                         check_img_url.length > 1  &&
-                                        // eslint-disable-next-line jsx-a11y/img-redundant-alt
-                                            <img src={check_img_url} alt={"chek image"}
+                                            <img src={check_img_url} alt={''}
                                                  width={100} height={100}
                                                  onError={()=>this.setState({img_load_status:false})}
                                                  onLoad={()=>this.setState({img_load_status:true})}
