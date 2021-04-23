@@ -1,0 +1,22 @@
+/*dark theme*/
+$white: #fff;
+$black: #1a1a27;
+.wrapper{
+  &.dark{
+    //background: #3f4254;
+    .page-header {
+      background-color: #1a1a27;
+      color: #fff;
+    }
+    .sidebar {
+      background-color: #1e1e2d;
+    }
+    .sidebar-toggle {
+      background-color: #1a1a27;
+    }
+    .footer{
+      background-color:#1a1a27!important;
+      color: #fff;
+    }
+  }
+}
