@@ -6,18 +6,16 @@ function CustomDnD(){
             "2",
             "3"
         ])
-    const [draggingItem,setdraggingItem] = useState(null)
+    const [draggingItem,setDraggingItem] = useState(null)
     const dragOverItem =React.createRef()
-    function handleDragStart(event,position){
-        setdraggingItem(position)
-    }
+    const  handleDragStart = (event,position)=>setDraggingItem(position)
     function handleDragEnter(event,position){
         dragOverItem.current = position
         const copyList =  [...list]
         const draggingItemContent = copyList[draggingItem]
         copyList.splice(Number(draggingItem), 1)
         copyList.splice(Number(dragOverItem.current), 0, draggingItemContent)
-        setdraggingItem(position)
+        setDraggingItem(position)
         setList(copyList);
     }
     return (
