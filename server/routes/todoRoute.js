@@ -67,7 +67,7 @@ router.post('/tasks',function (req,res) {
     const {title,category} = req.body;
     if ((title && title !== '') && (category && category !== '')){
         tasks.push({
-            id: Date.now(),
+            id:Math.floor(Math.random() * 100),
             category,
             is_complete: false,
             is_important: false,

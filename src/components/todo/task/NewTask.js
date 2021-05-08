@@ -1,85 +1,70 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
 
-
-class NewTask extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            show: false,
-            taskName: '',
-        }
-        this.pressed = new Set();
-    }
-    handlerKeyDown = (event) => {
+function NewTask(props){
+    const [showModal, setShowModal] = useState(false)
+    const [taskName, setTaskName] = useState('')
+    let pressed = new Set()
+    const handlerKeyDown = (event) => {
         let codes = ["KeyN","KeyT"]
-        this.pressed.add(event.code)
-        const is_combination_pressed = codes.every((code)=>this.pressed.has(code))
+        pressed.add(event.code)
+        const is_combination_pressed = codes.every((code)=>pressed.has(code))
         if (is_combination_pressed){
-            this.pressed.clear()
-            this.handleOpen()
+            pressed.clear()
+            handleOpen()
         }
     }
-    handlerKeyUp = (event) =>{
-        this.pressed.delete(event.code);
-    }
-    componentDidMount() {
-        //региструем события
-        document.addEventListener("keydown",this.handlerKeyDown);
-        document.addEventListener('keyup', this.handlerKeyUp);
-    }
-    componentWillUnmount() {
-        // при "уничтожений" компонента нужно удалить слушателей события, что бы они не отработывали на других страницах приложения
-
-        document.removeEventListener("keydown",this.handlerKeyDown,false);
-        document.removeEventListener('keyup', this.handlerKeyUp,false);
-    }
-
-    handleOpen = () => {
-        if (this.props.activeCategory === ''){
-            this.props.showToast('Please select category first')
+    const handlerKeyUp = (event) => pressed.delete(event.code);
+    const handleOpen = () => {
+        if (props.activeCategory === ''){
+            props.showToast('Please select category first')
         }else{
-            this.setState(({show})=>({show:!show}))
+            setShowModal((showModal)=>!showModal)
         }
     }
+    const inputHandler = (event) => setTaskName(event.target.value)
 
-    inputHandler = (event) => {
-        this.setState({taskName: event.target.value})
-    }
+    useEffect(() => {
+        //региструем события
+        document.addEventListener("keydown",handlerKeyDown);
+        document.addEventListener('keyup', handlerKeyUp);
+        return () => {
+            // при "уничтожений" компонента нужно удалить слушателей события, что бы они не отработывали на других страницах приложения
+            document.removeEventListener("keydown",handlerKeyDown,false);
+            document.removeEventListener('keyup', handlerKeyUp,false);
+        }
+    });
 
-    render() {
-        const {taskName,show} = this.state
-        const {createTask} = this.props
-        return (
-            <>
-                <div className={'btn btn-sm btn-primary'} onClick={this.handleOpen}>
-                    <i className={"fa fa-plus mr-3"}/>
-                    New Task <br/><kbd><kbd>N</kbd> + <kbd>T</kbd></kbd>
-                </div>
-                <Modal show={show} onHide={this.handleOpen}>
-                    <Modal.Header closeButton>
-                        <Modal.Title>Create new Task</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div className={"form-group"}>
-                            <input id={'list'} type="text" className={'form-control'} value={taskName}
-                                   onChange={this.inputHandler}
-                                   placeholder={'title'}/>
-                        </div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={this.handleOpen}>
-                            Cancel
-                        </Button>
-                        <Button type={"submit"} variant="primary" onClick={() => createTask(taskName)}>
-                            Add
-                        </Button>
-                    </Modal.Footer>
-                </Modal>
-            </>
-        );
-    }
+    const {createTask} = props
+    return (
+        <>
+            <div className={'btn btn-sm btn-primary'} onClick={handleOpen}>
+                <i className={"fa fa-plus mr-3"}/>
+                New Task <br/><kbd><kbd>N</kbd> + <kbd>T</kbd></kbd>
+            </div>
+            <Modal show={showModal} onHide={handleOpen}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Create new Task</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className={"form-group"}>
+                        <input id={'list'} type="text" className={'form-control'} value={taskName}
+                               onChange={inputHandler}
+                               placeholder={'title'}/>
+                    </div>
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleOpen}>
+                        Cancel
+                    </Button>
+                    <Button type={"submit"} variant="primary" onClick={() => createTask(taskName)}>
+                        Add
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+        </>
+    );
 }
 
 export default NewTask

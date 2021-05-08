@@ -1,20 +1,21 @@
-import React, {useState} from "react"
-function CustomDnD(){
-    const [list,setList] = useState([
-            "0",
-            "1",
-            "2",
-            "3"
-        ])
-    const [draggingItem,setDraggingItem] = useState(null)
-    const dragOverItem =React.createRef()
-    const  handleDragStart = (event,position)=>setDraggingItem(position)
-    function handleDragEnter(event,position){
-        dragOverItem.current = position
-        const copyList =  [...list]
+import {useState} from "react"
+
+function CustomDnD() {
+    const [list, setList] = useState([
+        "0",
+        "1",
+        "2",
+        "3"
+    ])
+    const [draggingItem, setDraggingItem] = useState(null)
+    let dragOverItem = 0
+    const handleDragStart = (event, position) => setDraggingItem(position)
+    const handleDragEnter = (event, position) => {
+        dragOverItem = position
+        const copyList = [...list]
         const draggingItemContent = copyList[draggingItem]
         copyList.splice(Number(draggingItem), 1)
-        copyList.splice(Number(dragOverItem.current), 0, draggingItemContent)
+        copyList.splice(Number(dragOverItem), 0, draggingItemContent)
         setDraggingItem(position)
         setList(copyList);
     }
@@ -30,13 +31,13 @@ function CustomDnD(){
                 <ul className={'custom_dnd_list'}>
                     {
                         list &&
-                        list.map((item,index)=>(
+                        list.map((item, index) => (
                             <li className={'custom_dnd_item'}
                                 key={index}
                                 draggable
-                                onDragStart={(e)=>handleDragStart(e,index)}
-                                onDragEnter={(e)=>handleDragEnter(e,index)}
-                                onDragOver = {(e) => (e.preventDefault())}
+                                onDragStart={(e) => handleDragStart(e, index)}
+                                onDragEnter={(e) => handleDragEnter(e, index)}
+                                onDragOver={(e) => (e.preventDefault())}
                             >{item}</li>
                         ))
                     }
@@ -45,4 +46,5 @@ function CustomDnD(){
         </div>
     )
 }
+
 export default CustomDnD
