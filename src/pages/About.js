@@ -1,11 +1,5 @@
 import React from "react";
 import BiographyTable from "../components/biography/BiographyTable";
 
-function About() {
-    return (
-        <>
-            <BiographyTable/>
-        </>)
-}
-
+const About = ()=> <BiographyTable/>
 export default About

@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react";
-import '../todo.css';
+import './todo.css';
 import CategoryItem from "./CategoryItem";
+import {useTranslation} from "react-i18next";
 
 function Categories(props){
     const [showNewCategoryForm , setShowNewCategoryForm] = useState(false)
@@ -33,12 +34,13 @@ function Categories(props){
             document.removeEventListener('keyup', handlerKeyUp,false);
         }
     });
+    const {t} = useTranslation()
     return (
         <div className={'card custom-card p-0'}>
             <div className={'card-body px-4'}>
                 <div className={'navi'}>
                     <div className={'navi-section px-4'}>
-                        Category
+                        {t('todo.category_title')}
                     </div>
                     {
                         categories.map((item, index) => (
@@ -62,7 +64,7 @@ function Categories(props){
                                     }
 
                                 </span>
-                            <span className={'navi-text'}>New Category</span>
+                            <span className={'navi-text'}>{t('todo.new_category')}</span>
                             <kbd><kbd>N</kbd> + <kbd>C</kbd></kbd>
                         </div>
                     </div>

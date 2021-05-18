@@ -1,10 +1,12 @@
 import React, {useEffect, useState} from "react";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
+import {useTranslation} from "react-i18next";
 
 function NewTask(props){
     const [showModal, setShowModal] = useState(false)
     const [taskName, setTaskName] = useState('')
+    const {t} = useTranslation()
     let pressed = new Set()
     const handlerKeyDown = (event) => {
         let codes = ["KeyN","KeyT"]
@@ -18,7 +20,7 @@ function NewTask(props){
     const handlerKeyUp = (event) => pressed.delete(event.code);
     const handleOpen = () => {
         if (props.activeCategory === ''){
-            props.showToast('Please select category first')
+            props.showToast(t('todo.create_category_message'))
         }else{
             setShowModal((showModal)=>!showModal)
         }
@@ -41,11 +43,11 @@ function NewTask(props){
         <>
             <div className={'btn btn-sm btn-primary'} onClick={handleOpen}>
                 <i className={"fa fa-plus mr-3"}/>
-                New Task <br/><kbd><kbd>N</kbd> + <kbd>T</kbd></kbd>
+                {t('todo.new_task')} <br/><kbd><kbd>N</kbd> + <kbd>T</kbd></kbd>
             </div>
             <Modal show={showModal} onHide={handleOpen}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Create new Task</Modal.Title>
+                    <Modal.Title>{t('todo.create_todo_modal_title')}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className={"form-group"}>
@@ -56,10 +58,10 @@ function NewTask(props){
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleOpen}>
-                        Cancel
+                        {t('btn.cancel')}
                     </Button>
                     <Button type={"submit"} variant="primary" onClick={() => createTask(taskName)}>
-                        Add
+                        {t('btn.add')}
                     </Button>
                 </Modal.Footer>
             </Modal>

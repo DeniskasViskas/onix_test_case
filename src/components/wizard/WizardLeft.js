@@ -1,5 +1,5 @@
 import React from "react"
-import TabsHeader from "./parts/TabsHeader";
+import TabsHeader from "./TabsHeader";
 import PropTypes from "prop-types";
 
 function WizardLeft({tabsData,onTabClick}) {

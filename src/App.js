@@ -10,30 +10,32 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import Todo from "./pages/Todo";
 import {ThemeContextProvider} from './providers/ThemeContextProvider';
-
+import {LangContextProvider} from "./providers/LangContextProvider";
 
 function App() {
     return (
-        <ThemeContextProvider>
-            <Router>
-                            <Layout>
-                                <Switch>
-                                    <Route exact path="/">
-                                        <Redirect to="/week_3" />
-                                    </Route>
-                                    <Route exact path="/week_3">
-                                        <Home />
-                                    </Route>
-                                    <Route exact path="/week_5">
-                                        <About />
-                                    </Route>
-                                    <Route exact path="/week_6">
-                                        <Todo />
-                                    </Route>
-                                </Switch>
-                            </Layout>
-                        </Router>
-        </ThemeContextProvider>
+        <LangContextProvider>
+            <ThemeContextProvider>
+                <Router>
+                    <Layout>
+                        <Switch>
+                            <Route exact path="/">
+                                <Redirect to="/week_3" />
+                            </Route>
+                            <Route exact path="/week_3">
+                                <Home />
+                            </Route>
+                            <Route exact path="/week_5">
+                                <About />
+                            </Route>
+                            <Route exact path="/week_6">
+                                <Todo />
+                            </Route>
+                        </Switch>
+                    </Layout>
+                </Router>
+            </ThemeContextProvider>
+        </LangContextProvider>
     );
 }
 export default App;

@@ -1,6 +1,6 @@
 import React, {useState} from "react"
-import WizardLeft from "./wizard_components/WizardLeft";
-import WizardRight from "./wizard_components/WizardRight";
+import WizardLeft from "./WizardLeft";
+import WizardRight from "./WizardRight";
 import PropTypes from "prop-types";
 //просто вынес данные в отдельный файл - не удобно работать с этим файлом.
 import {arr} from './wizard_data';

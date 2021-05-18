@@ -3,6 +3,7 @@ import Task from "./Task";
 import NewTask from "./NewTask";
 import {Droppable} from "react-beautiful-dnd";
 import {Toast} from "react-bootstrap";
+import {useTranslation} from "react-i18next";
 
 function Tasks(props){
     const [toast,setToast] = useState({
@@ -30,13 +31,14 @@ function Tasks(props){
     }
     const {activeCategory,todos,markTack} = props
     const {toastShow,toastMessage} = toast
+    const {t} = useTranslation()
     return (
         <>
             <div className={'card custom-card mb-6'}>
                 <div className="card-header bg-white">
                     <div className="card-title">
                         <h3 className={'text-uppercase'}>{activeCategory}</h3>
-                        <div className={"text-muted"}>Tasks</div>
+                        <div className={"text-muted"}>{t('todo.tasks')}</div>
                     </div>
                 </div>
                 <div className={'px-4'}>

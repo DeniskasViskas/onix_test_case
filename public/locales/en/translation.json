@@ -1,0 +1,20 @@
+{
+	"todo": {
+		"category_title":"Category" ,
+		"new_category":"New Category",
+		"tasks": "Tasks",
+		"new_task": "New task",
+		"create_category_message": "Please select category first",
+		"create_todo_modal_title": "Create new Task"
+	},
+	"header": {
+		"w3": "week 3",
+		"w5": "week 5",
+		"w7": "week 8",
+		"lang": "Lang"
+	},
+	"btn": {
+		"add": "add",
+		"cancel": "cancel"
+	}
+}

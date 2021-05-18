@@ -1,98 +1,25 @@
 import React, {useEffect, useState} from "react";
 import "../components/todo/todo.css";
-import Categories from "../components/todo/category/Categories";
+import Categories from "../components/todo/Categories";
 import {DragDropContext} from "react-beautiful-dnd";
 import CustomDnD from "../components/todo/CustomDnD";
-import Tasks from "../components/todo/task/Tasks";
+import Tasks from "../components/todo/Tasks";
+import {getCategory,getCategoryTask,createTack,createCategory,markTack} from "../service/todo";
 
 function Todo(){
     const [todos,setTodos] = useState([])
     const [categories,setCategories] = useState([]);
     const [activeCategory,setActiveCategory] = useState('');
 
-    const getCategory = ()=> {
-        fetch('http://localhost:3001/todo/category')
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                setCategories(data)
-            })
-    }
-
-    const getCategoryTask = (cat = '')=> {
-        fetch('http://localhost:3001/todo/tasks/' + cat, {
-            headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            },
-        })
-            .then((response) => {
-                return response.json()
-            })
-            .then((data) => {
-                setTodos(data)
-            })
-    }
-
     useEffect(()=>{
-        getCategory()
-        getCategoryTask('')
+        getCategory(setCategories)
+        getCategoryTask('',setTodos)
     },[])
 
-    const createTack = (task)=> {
-        fetch('http://localhost:3001/todo/tasks', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(task)
-        })
-            .then((response) => {
-                if (response.ok) {
-                    getCategory()
-                    getCategoryTask(activeCategory)
-                } else {
-                    console.log(response)
-                }
-            })
-    }
-
-    const createCategory = (name) => {
-        if (name && name !== '') {
-            fetch('http://localhost:3001/todo/category', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json;charset=utf-8'
-                },
-                body: JSON.stringify({"name": `${name}`})
-            })
-                .then((response) => {
-                    if (response.ok) {
-                        getCategory()
-                    } else {
-                        console.log(response)
-                    }
-                })
-        }
-    }
-
-    const markTack = (id, prop) => {
-        fetch('http://localhost:3001/todo/tasks/' + id, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify({prop})
-        })
-            .then((response) => {
-                if (response.ok) {
-                    getCategoryTask(activeCategory)
-                } else {
-                    console.log(response)
-                }
-            })
-    }
+    useEffect(()=>{
+        getCategory(setCategories)
+        getCategoryTask(activeCategory,setTodos)
+    },[activeCategory,todos])
 
     const DragHandler = (event) => {
         const {destination, source} = event;
@@ -122,7 +49,7 @@ function Todo(){
                         categories={categories}
                         changeList={(val) => setActiveCategory(val)}
                         activeCategory={activeCategory}
-                        createCategory={createCategory}
+                        createCategory={(name)=>createCategory(name,setCategories)}
                     />
                 </div>
                 <div className={'flex-row-fluid ml-6'}>
@@ -130,8 +57,8 @@ function Todo(){
                         <Tasks
                             activeCategory={activeCategory}
                             todos={todos}
-                            markTack={markTack}
-                            createTack={createTack}
+                            markTack={(id,prop)=>markTack(id,prop,setTodos)}
+                            createTack={(task)=>createTack(task,setTodos)}
                         />
                     </DragDropContext>
                 </div>

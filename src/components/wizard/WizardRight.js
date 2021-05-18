@@ -1,5 +1,5 @@
 import React from "react"
-import TabsContent from "./parts/TabsContent";
+import TabsContent from "./TabsContent";
 import PropTypes from "prop-types";
 
 function WizardRight({tabsData}) {

@@ -93,13 +93,27 @@ body {
   color: #5d78ff;
   border-bottom: 2px solid #5d78ff;
 }
+.left-menu{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  width: 100%;
+  align-items: center;
+  .left-menu-item{
+    margin-right: 20px;
+  }
+  .form-group{
+    margin-bottom: 0;
+  }
+}
 .switch-btn{
   display: flex;
   justify-content: center;
   align-items: flex-end;
   line-height: 10px;
   flex-direction: column;
-  width: 100%;
+  min-width: 150px;
+  margin-right: 20px;
 }
 .custom-control-input:checked~.custom-control-label::before{
   color: #fff;
