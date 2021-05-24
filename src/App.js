@@ -11,11 +11,14 @@ import About from "./pages/About";
 import Todo from "./pages/Todo";
 import {ThemeContextProvider} from './providers/ThemeContextProvider';
 import {LangContextProvider} from "./providers/LangContextProvider";
+import {Provider} from "react-redux";
+import {store} from "./store";
 
 function App() {
     return (
-        <LangContextProvider>
-            <ThemeContextProvider>
+        <Provider store={store}>
+            <LangContextProvider>
+                <ThemeContextProvider>
                 <Router>
                     <Layout>
                         <Switch>
@@ -35,7 +38,8 @@ function App() {
                     </Layout>
                 </Router>
             </ThemeContextProvider>
-        </LangContextProvider>
+            </LangContextProvider>
+        </Provider>
     );
 }
 export default App;

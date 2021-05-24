@@ -1,25 +1,22 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect} from "react";
 import "../components/todo/todo.css";
 import Categories from "../components/todo/Categories";
 import {DragDropContext} from "react-beautiful-dnd";
 import CustomDnD from "../components/todo/CustomDnD";
 import Tasks from "../components/todo/Tasks";
-import {getCategory,getCategoryTask,createTack,createCategory,markTack} from "../service/todo";
+import {useDispatch, useSelector} from "react-redux";
+import {todosActions} from "../store/todos";
 
 function Todo(){
-    const [todos,setTodos] = useState([])
-    const [categories,setCategories] = useState([]);
-    const [activeCategory,setActiveCategory] = useState('');
-
+    const dispatch = useDispatch();
+    // const selectTodos = state => state.todos
+    const {todos,categories,activeCategory} = useSelector(state => state.todos)
     useEffect(()=>{
-        getCategory(setCategories)
-        getCategoryTask('',setTodos)
-    },[])
-
+        dispatch(todosActions.loadCategory())
+    },[dispatch])
     useEffect(()=>{
-        getCategory(setCategories)
-        getCategoryTask(activeCategory,setTodos)
-    },[activeCategory,todos])
+        dispatch(todosActions.loadTodos(activeCategory))
+    },[activeCategory,dispatch])
 
     const DragHandler = (event) => {
         const {destination, source} = event;
@@ -47,9 +44,9 @@ function Todo(){
                 <div className={'flex-row-auto'}>
                     <Categories
                         categories={categories}
-                        changeList={(val) => setActiveCategory(val)}
+                        changeList={(val) => dispatch(todosActions.setActiveCategory(val))}
                         activeCategory={activeCategory}
-                        createCategory={(name)=>createCategory(name,setCategories)}
+                        createCategory={(name)=>dispatch(todosActions.createCategory(name))}
                     />
                 </div>
                 <div className={'flex-row-fluid ml-6'}>
@@ -57,8 +54,8 @@ function Todo(){
                         <Tasks
                             activeCategory={activeCategory}
                             todos={todos}
-                            markTack={(id,prop)=>markTack(id,prop,setTodos)}
-                            createTack={(task)=>createTack(task,setTodos)}
+                            markTack={(id,prop)=>dispatch(todosActions.markTodo({id,prop,activeCategory}))}
+                            createTack={(task)=>dispatch(todosActions.createTodo(task))}
                         />
                     </DragDropContext>
                 </div>

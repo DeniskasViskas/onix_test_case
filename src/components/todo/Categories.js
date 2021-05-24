@@ -2,6 +2,8 @@ import React, {useEffect, useState} from "react";
 import './todo.css';
 import CategoryItem from "./CategoryItem";
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
+
 
 function Categories(props){
     const [showNewCategoryForm , setShowNewCategoryForm] = useState(false)
@@ -21,6 +23,7 @@ function Categories(props){
         showNewCategoryHandler()
     }
     const handlerKeyUp = (event)=>pressed.delete(event.code);
+    const {categoryLoading} = useSelector((state)=>state.todos)
 
     const {categories,createCategory} = props
 
@@ -43,15 +46,21 @@ function Categories(props){
                         {t('todo.category_title')}
                     </div>
                     {
-                        categories.map((item, index) => (
-                            <CategoryItem
-                                title={item.name}
-                                count={item.count}
-                                key={index}
-                                changeList={(val) => props.changeList(val)}
-                                isActive={(item.name === props.activeCategory)}
-                            />
-                        ))
+                        categoryLoading &&
+                            <div className={'text-center loading_indicator'}><i className="fas fa-spinner rotate"/></div>
+                    }
+                    {
+                        !!categories ?
+                            categories.map((item, index) => (
+                                <CategoryItem
+                                    title={item.name}
+                                    count={item.count}
+                                    key={index}
+                                    changeList={(val) => props.changeList(val)}
+                                    isActive={(item.name === props.activeCategory)}
+                                />
+                            ))
+                            : 'No category'
                     }
                     <div className={'navi-item'}
                          onClick={showNewCategoryHandler}>

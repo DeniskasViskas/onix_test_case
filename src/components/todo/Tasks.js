@@ -4,6 +4,7 @@ import NewTask from "./NewTask";
 import {Droppable} from "react-beautiful-dnd";
 import {Toast} from "react-bootstrap";
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
 
 function Tasks(props){
     const [toast,setToast] = useState({
@@ -19,19 +20,15 @@ function Tasks(props){
     const createTack = (title) => {
         const {activeCategory,createTack} = props
         const task = {
-            id: Number(Date.now())/1000,
             category: activeCategory,
-            is_complete: false,
-            is_important: false,
-            is_stared: false,
-            title: title,
-            time: new Date().toDateString()
+            title
         }
         createTack(task)
     }
     const {activeCategory,todos,markTack} = props
     const {toastShow,toastMessage} = toast
     const {t} = useTranslation()
+    const {todosLoading} = useSelector((state)=>state.todos)
     return (
         <>
             <div className={'card custom-card mb-6'}>
@@ -54,8 +51,10 @@ function Tasks(props){
                     </Toast>
                 </div>
                 <div className={'card-body px-4'}>
+                    { todosLoading && <div className={'text-center loading_indicator'}><i className="fas fa-spinner rotate"/></div>}
                     <Droppable droppableId={'tasks_dnd'}>
-                        {(provided) => (
+
+                        {!!todos ?(provided) => (
                             <div
                                 className={'list'}
                                 ref={provided.innerRef}
@@ -69,7 +68,7 @@ function Tasks(props){
                                 }
                                 {provided.placeholder}
                             </div>
-                        )}
+                        ) : 'No tasks'}
                     </Droppable>
                 </div>
             </div>

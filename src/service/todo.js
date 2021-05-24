@@ -1,11 +1,11 @@
 
-const getCategory = (cb) =>{
+export const getCategory = (cb) =>{
     fetch(process.env.REACT_APP_API_URL+'/todo/category')
         .then((response) => response.json())
         .then((data)=>cb(data))
 }
 
-const getCategoryTask = (cat,cb)=> {
+export const getCategoryTask = (cat,cb)=> {
     fetch(process.env.REACT_APP_API_URL + '/todo/tasks/' + cat, {
         headers: {
             'Content-Type': 'application/json',
@@ -18,7 +18,7 @@ const getCategoryTask = (cat,cb)=> {
         .then((data) => cb(data))
 }
 
-const createTack = (task,cb)=>{
+export const createTack = (task,cb)=>{
     fetch(process.env.REACT_APP_API_URL+'/todo/tasks', {
         method: 'POST',
         headers: {
@@ -26,16 +26,11 @@ const createTack = (task,cb)=>{
         },
         body: JSON.stringify(task)
     })
-        .then((response) => {
-            if (response.ok) {
-                getCategory(cb)
-            } else {
-                console.log(response)
-            }
-        })
+        .then((response)=>response.json())
+        .then((data)=>cb(data))
 }
 
-const createCategory = (name,cb) =>{
+export const createCategory = (name,cb) =>{
     if (name && name !== '') {
         fetch(process.env.REACT_APP_API_URL+'/todo/category', {
             method: 'POST',
@@ -54,7 +49,7 @@ const createCategory = (name,cb) =>{
     }
 }
 
-const markTack = (id, prop,cb)=>{
+export const markTack = (id, prop,cb)=>{
     fetch(process.env.REACT_APP_API_URL+'/todo/tasks/' + id, {
         method: 'PUT',
         headers: {
@@ -62,13 +57,7 @@ const markTack = (id, prop,cb)=>{
         },
         body: JSON.stringify({prop})
     })
-        .then((response) => {
-            if (response.ok) {
-                getCategoryTask('',cb)
-            } else {
-                console.log(response)
-            }
-        })
+        .then((response) =>response.json())
+        .then((data)=>cb(data))
 }
 
-export { getCategory,getCategoryTask,createTack,createCategory,markTack }

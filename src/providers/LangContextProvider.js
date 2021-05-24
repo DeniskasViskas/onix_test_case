@@ -1,19 +1,21 @@
-import React, {useState} from 'react';
+import React, {useEffect} from 'react';
 import {useTranslation} from "react-i18next";
+import {useSelector} from "react-redux";
+import { useDispatch} from "react-redux";
+import {translateActions} from "../store/translates";
 
 const {Provider, Consumer} = React.createContext();
 
-const getSaveLang = () =>localStorage.getItem('lang')
-
-const saveLang = (lang) =>localStorage.setItem('lang',lang)
-
 const  LangContextProvider = (props)=>{
-    const [lang,setLang] = useState(getSaveLang())
+    const dispatch = useDispatch();
+    const {lang} = useSelector((state)=>state.translate);
     const {i18n} = useTranslation()
+    useEffect(()=>{
+        i18n.changeLanguage(lang)
+    },[lang,i18n])
     const changeLang = (lang) => {
         i18n.changeLanguage(lang)
-        setLang(lang)
-        saveLang(lang)
+        dispatch(translateActions.setTranslate({lang}))
     }
     return <Provider value={{lang,changeLang}}>{props.children}</Provider>
 }

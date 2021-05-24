@@ -40,7 +40,10 @@ const tasks =[
 ]
 //category
 router.get('/category',function (req,res) {
-    res.json(categories)
+    setTimeout(()=>{
+        res.json(categories)
+    },1000)
+
 })
 
 router.post('/category',function (req,res) {
@@ -53,34 +56,41 @@ router.post('/category',function (req,res) {
 })
 //task
 router.get('/tasks',function (req,res) {
-    return res.json(tasks)
+    setTimeout(()=>{
+        return res.json(tasks)
+    },1000)
 })
 router.get('/tasks/:category',function (req,res) {
     const category = req.params.category
     const t = tasks.filter(function (item) {
         return item.category === category;
     })
-    return res.json(t)
+    setTimeout(()=>{
+        return res.json(t)
+    },1000)
+
 })
 
 router.post('/tasks',function (req,res) {
     const {title,category} = req.body;
     if ((title && title !== '') && (category && category !== '')){
-        tasks.push({
-            id:Math.floor(Math.random() * 100),
+        const new_todo = {
+            id: tasks.length + 1,
+            index: tasks.length + 1,
             category,
             is_complete: false,
             is_important: false,
             is_stared: false,
             title,
             time: new Date().toDateString()
-        })
+        }
+        tasks.push(new_todo)
         categories.filter((item)=>{
             if (item.name === category){
                 item.count = item.count+1
             }
         })
-        return res.status(201).json({status:'create'})
+        return res.status(201).json(new_todo)
     }
     return res.status(400).json({message:"data is not valid"})
 })
@@ -93,7 +103,8 @@ router.put('/tasks/:id',function (req,res) {
             return item[prop] = !item[prop]
         }
     })
-    return res.json({message:"update"})
+    const result = tasks.filter(item => item.id === parseInt(id));
+    return res.json(result[0])
 })
 
 module.exports = router

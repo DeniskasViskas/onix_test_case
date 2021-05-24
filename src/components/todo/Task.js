@@ -5,7 +5,7 @@ function Task(props){
     const item = props.data
     const {data,markTack} = props
     return (
-        <Draggable draggableId={Number(item.id).toString()} index={item.index}>
+        <Draggable draggableId={item.id.toString()} index={item.index}>
             {provided=>(
                 <div
                     {...provided.draggableProps}
